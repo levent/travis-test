@@ -1,0 +1,20 @@
+language: ruby
+rvm:
+  - 1.9.3
+
+env:
+  - FIREFOX_VERSION='4.0.1'
+
+before_script:
+  - "sudo apt-get remove firefox"
+  - "sudo mkdir -p /usr/local/firefox/$FIREFOX_VERSION"
+  - "sudo chown -R travis /usr/local/firefox"
+  - "wget -O /tmp/firefox.tar.bz2 ftp://ftp.mozilla.org/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2"
+  - "pushd /usr/local/firefox/$FIREFOX_VERSION"
+  - "tar xf /tmp/firefox.tar.bz2"
+  - "sudo ln -s /usr/local/firefox/$FIREFOX_VERSION/firefox /usr/local/bin/firefox"
+  - "popd"
+  - "export PATH=${PATH}:/usr/local/bin"
+  - "echo $PATH"
+  - "ls -la /usr/local/bin/firefox"
+  - "firefox --version"
